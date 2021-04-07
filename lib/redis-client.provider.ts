@@ -5,7 +5,7 @@ import { Provider } from '@nestjs/common';
 import { REDIS_CLIENT, REDIS_MODULE_OPTIONS } from './redis.constants';
 import { RedisModuleAsyncOptions, RedisModuleOptions } from './redis.interface';
 
-export class RedisClientError extends Error {}
+export class RedisClientError extends Error { }
 export interface RedisClient {
   defaultKey: string;
   clients: Map<string, Redis.Redis>;
@@ -30,16 +30,16 @@ export const createClient = (): Provider => ({
     if (Array.isArray(options)) {
       await Promise.all(
         options.map(async o => {
-          const key = o.name || defaultKey;
+          const key = o.clientName || defaultKey;
           if (clients.has(key)) {
-            throw new RedisClientError(`${o.name || 'default'} client is exists`);
+            throw new RedisClientError(`${o.clientName || 'default'} client is exists`);
           }
           clients.set(key, await getClient(o));
         }),
       );
     } else {
-      if (options.name && options.name.length !== 0) {
-        defaultKey = options.name;
+      if (options.clientName && options.clientName.length !== 0) {
+        defaultKey = options.clientName;
       }
       clients.set(defaultKey, await getClient(options));
     }
