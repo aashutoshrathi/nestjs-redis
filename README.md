@@ -1,28 +1,28 @@
-
-# Nestjs Redis
+# NestJS Redis
 
 This is fork of https://github.com/skunight/nestjs-redis with Sentinel fixes.
-
-Redis component for NestJs.
-
-### Installation
+**PS:** This is temporary package until above repo gets fixed for the same (hopefully)
+## Installation
 
 **Yarn**
+
 ```bash
-yarn add nestjs-redis
+yarn add @aashutoshrathi/nestjs-redis
 ```
 
 **NPM**
+
 ```bash
-npm install nestjs-redis --save
+npm install @aashutoshrathi/nestjs-redis --save
 ```
 
 ### Getting Started
+
 Let's register the RedisModule in `app.module.ts`
 
 ```typescript
 import { Module } from '@nestjs/common'
-import { RedisModule} from 'nestjs-redis'
+import { RedisModule} from '@aashutoshrathi/nestjs-redis'
 
 @Module({
     imports: [
@@ -32,9 +32,10 @@ import { RedisModule} from 'nestjs-redis'
 export class AppModule {}
 ```
 With Async
+
 ```typescript
 import { Module } from '@nestjs/common';
-import { RedisModule} from 'nestjs-redis'
+import { RedisModule} from '@aashutoshrathi/nestjs-redis'
 
 @Module({
     imports: [
@@ -49,6 +50,7 @@ export class AppModule {}
 ```
 And the config file look like this
 With single client
+
 ```typescript
 export default {
     host: process.env.REDIS_HOST,
@@ -62,7 +64,9 @@ export default {
     url: 'redis://:authpassword@127.0.0.1:6380/4',
 }
 ```
+
 With custom error handler
+
 ```typescript
 export default {
     url: 'redis://:authpassword@127.0.0.1:6380/4',
@@ -71,7 +75,9 @@ export default {
     )},
 }
 ```
+
 With multi client
+
 ```typescript
 export default [
     {
@@ -88,10 +94,12 @@ export default [
     },
 ]
 ```
+
 And use in your service
+
 ```typescript
 import { Injectable } from '@nestjs/common';
-import { RedisService } from 'nestjs-redis';
+import { RedisService } from '@aashutoshrathi/nestjs-redis';
 
 @Injectable()
 export class TestService {
@@ -104,7 +112,9 @@ export class TestService {
   }
 }
 ```
+
 Options
+
 ```typescript
 interface RedisOptions {
     /**
@@ -207,4 +217,5 @@ interface RedisOptions {
     showFriendlyErrorStack?: boolean;
 }
 ```
+
 That's it!
