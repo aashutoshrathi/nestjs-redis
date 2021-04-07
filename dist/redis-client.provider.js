@@ -15,23 +15,23 @@ async function getClient(options) {
     }
     return client;
 }
-exports.createClient = () => ({
+const createClient = () => ({
     provide: redis_constants_1.REDIS_CLIENT,
     useFactory: async (options) => {
         const clients = new Map();
         let defaultKey = uuid_1.v4();
         if (Array.isArray(options)) {
             await Promise.all(options.map(async (o) => {
-                const key = o.name || defaultKey;
+                const key = o.clientName || defaultKey;
                 if (clients.has(key)) {
-                    throw new RedisClientError(`${o.name || 'default'} client is exists`);
+                    throw new RedisClientError(`${o.clientName || 'default'} client is exists`);
                 }
                 clients.set(key, await getClient(o));
             }));
         }
         else {
-            if (options.name && options.name.length !== 0) {
-                defaultKey = options.name;
+            if (options.clientName && options.clientName.length !== 0) {
+                defaultKey = options.clientName;
             }
             clients.set(defaultKey, await getClient(options));
         }
@@ -43,8 +43,10 @@ exports.createClient = () => ({
     },
     inject: [redis_constants_1.REDIS_MODULE_OPTIONS],
 });
-exports.createAsyncClientOptions = (options) => ({
+exports.createClient = createClient;
+const createAsyncClientOptions = (options) => ({
     provide: redis_constants_1.REDIS_MODULE_OPTIONS,
     useFactory: options.useFactory,
     inject: options.inject,
 });
+exports.createAsyncClientOptions = createAsyncClientOptions;
