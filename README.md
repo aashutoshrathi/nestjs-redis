@@ -2,6 +2,10 @@
 
 This is fork of https://github.com/skunight/nestjs-redis with Sentinel fixes.
 **PS:** This is temporary package until above repo gets fixed for the same (hopefully)
+
+## Why this repo exists?
+https://blog.aashutosh.dev/multi-client-and-sentinel-redis-setup-with-nestjs
+
 ## Installation
 
 **Yarn**
